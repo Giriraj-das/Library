@@ -23,10 +23,10 @@ async def get_product(session: AsyncSession, product_id: int) -> Product | None:
 
 
 async def update_product(
-    session: AsyncSession,
-    product: Product,
-    product_data: ProductUpdateSchema | ProductUpdatePartialSchema,
-    partial: bool = False,
+        session: AsyncSession,
+        product: Product,
+        product_data: ProductUpdateSchema | ProductUpdatePartialSchema,
+        partial: bool = False,
 ) -> Product:
     for name, value in product_data.model_dump(exclude_unset=partial).items():
         setattr(product, name, value)
