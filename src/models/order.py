@@ -28,10 +28,6 @@ class Order(Base):
         server_default=func.now(),
     )
 
-    products: Mapped[List['Product']] = relationship(
-        secondary='order_item',
-        back_populates='orders',
-    )
     products_details: Mapped[List['OrderItem']] = relationship(
         back_populates='order'
     )
