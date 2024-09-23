@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from core.models import Base
+from models import Base
 
 
 if TYPE_CHECKING:
-    from core.models import Order
-    from core.models import Product
+    from models import Order
+    from models import Product
 
 
 class OrderItem(Base):

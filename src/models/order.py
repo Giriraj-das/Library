@@ -2,13 +2,13 @@ import enum
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING, List
 
-from sqlalchemy import func, Enum, SmallInteger
+from sqlalchemy import func, Enum
 from sqlalchemy.orm import Mapped, relationship, mapped_column
-from core.models import Base
+from models import Base
 
 if TYPE_CHECKING:
-    from core.models import Product
-    from core.models import OrderItem
+    from models import Product
+    from models import OrderItem
 
 
 class OrderStatus(enum.Enum):

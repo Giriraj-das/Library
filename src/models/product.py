@@ -2,11 +2,11 @@ from typing import TYPE_CHECKING, List
 
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 
-from core.models import Base
+from models import Base
 
 if TYPE_CHECKING:
-    from core.models import Order
-    from core.models import OrderItem
+    from models import Order
+    from models import OrderItem
 
 
 class Product(Base):
