@@ -6,7 +6,7 @@ from crud import product as product_crud
 
 
 async def product_by_id(
-    product_id:int, Path,
+    product_id: int = Path,
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ) -> Product:
     product = await product_crud.get_product(session=session, product_id=product_id)
