@@ -1,7 +1,9 @@
+from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload, joinedload
 
+from crud.product import get_product
 from models import Order, OrderItem
 from schemas.order import OrderCreateSchema, OrderUpdatePartialSchema
 
@@ -10,20 +12,38 @@ async def create_order(session: AsyncSession, status: str | None) -> Order:
     order = Order(status=status)
     session.add(order)
     await session.commit()
-    # await session.refresh(order)
     return order
 
 
 async def create_order_item(session: AsyncSession, order_data: OrderCreateSchema):
+    # Checking product availability, and products quantity.
+    for product_data in order_data.products_details:
+        product = await get_product(session, product_id=product_data.id)
+        if not product:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f'Product: {product_data.id} does not exist.'
+            )
+        if product.stock_quantity < product_data.quantity:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f'Insufficient stock for product: {product.name}. \
+                Available: {product.stock_quantity}, requested: {product_data.quantity}.'
+            )
+
     order = await create_order(session, status=order_data.status)
-    order_items = [
-        OrderItem(
+
+    for product_data in order_data.products_details:
+        product = await get_product(session, product_id=product_data.id)
+        product.stock_quantity -= product_data.quantity
+
+        order_item = OrderItem(
             order_id=order.id,
             product_id=product_data.id,
             quantity=product_data.quantity,
-        ) for product_data in order_data.products_details
-    ]
-    session.add_all(order_items)
+        )
+        session.add(order_item)
+
     await session.commit()
 
     # for return
@@ -31,7 +51,7 @@ async def create_order_item(session: AsyncSession, order_data: OrderCreateSchema
         select(Order)
         .where(Order.id == order.id)
         .options(
-            selectinload(Order.products_details).selectinload(OrderItem.product),
+            selectinload(Order.products_details).joinedload(OrderItem.product),
         ),
     )
     return order
