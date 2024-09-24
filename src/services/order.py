@@ -15,5 +15,5 @@ async def order_by_id(
 
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Product {order_id} not found!",
+        detail=f'Product {order_id} not found!',
     )
