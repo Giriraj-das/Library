@@ -10,7 +10,7 @@ from schemas.product import ProductSchema, ProductCreateSchema, ProductUpdateSch
 router = APIRouter(prefix=settings.prefix.product, tags=['Products'])
 
 
-@router.post('/', response_model=ProductSchema, status_code=status.HTTP_201_CREATED)
+@router.post('', response_model=ProductSchema, status_code=status.HTTP_201_CREATED)
 async def create_product(
         product_data: ProductCreateSchema,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
@@ -18,21 +18,21 @@ async def create_product(
     return await product_crud.create_product(session=session, product_data=product_data)
 
 
-@router.get('/', response_model=list[ProductSchema])
+@router.get('', response_model=list[ProductSchema])
 async def get_products(
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
     return await product_crud.get_products(session=session)
 
 
-@router.get('/{product_id}/', response_model=ProductSchema)
+@router.get('/{product_id}', response_model=ProductSchema)
 async def get_product(
         product: ProductSchema = Depends(product_by_id),
 ):
     return product
 
 
-@router.put("/{product_id}/")
+@router.put("/{product_id}")
 async def update_product(
         product_data: ProductUpdateSchema,
         product: Product = Depends(product_by_id),
@@ -45,7 +45,7 @@ async def update_product(
     )
 
 
-@router.delete("/{product_id}/", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_product(
         product: Product = Depends(product_by_id),
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
