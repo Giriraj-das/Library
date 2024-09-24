@@ -5,7 +5,7 @@ from config import settings
 from services.product import product_by_id
 from models import db_helper, Product
 from crud import product as product_crud
-from schemas.product import ProductSchema, ProductCreateSchema, ProductUpdateSchema
+from schemas.product import ProductsSchema, ProductSchema, ProductCreateSchema, ProductUpdateSchema
 
 router = APIRouter(prefix=settings.prefix.product, tags=['Products'])
 
@@ -18,7 +18,7 @@ async def create_product(
     return await product_crud.create_product(session=session, product_data=product_data)
 
 
-@router.get('', response_model=list[ProductSchema])
+@router.get('', response_model=list[ProductsSchema])
 async def get_products(
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):

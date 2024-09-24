@@ -5,15 +5,10 @@ class ProductBaseSchema(BaseModel):
     name: str
     description: str
     price: int
-    stock_quantity: int
-
-
-class ProductSchema(ProductBaseSchema):
-    id: int
 
 
 class ProductCreateSchema(ProductBaseSchema):
-    pass
+    stock_quantity: int
 
 
 class ProductUpdateSchema(ProductCreateSchema):
@@ -25,3 +20,11 @@ class ProductUpdatePartialSchema(ProductCreateSchema):
     description: str | None = None
     price: int | None = None
     stock_quantity: int | None = None
+
+
+class ProductsSchema(ProductBaseSchema):
+    id: int
+
+
+class ProductSchema(ProductCreateSchema):
+    id: int
