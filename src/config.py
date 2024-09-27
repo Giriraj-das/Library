@@ -28,16 +28,23 @@ class DatabaseConfig(BaseModel):
     }
 
 
+class DockerConfig(BaseModel):
+    pg_user: str
+    pg_password: str
+    pg_db: str
+    image: str
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=('.env',),  # value of next parameter overrides value previous one.
+        env_file=('.env', '../.env.dev'),  # value of next parameter overrides value previous one.
         case_sensitive=False,
         env_nested_delimiter='__',
-        env_prefix='APP_CONFIG__',
     )
     run: RunConfig = RunConfig()
     prefix: Prefix = Prefix()
     db: DatabaseConfig
+    docker: DockerConfig
 
 
 settings = Settings()
