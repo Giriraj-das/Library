@@ -4,23 +4,25 @@ services:
   pg:
     image: postgres:16.3-alpine
     restart: on-failure
+    environment:
+      POSTGRES_USER: ${DOCKER__PG_USER}
+      POSTGRES_PASSWORD: ${DOCKER__PG_PASSWORD}
+      POSTGRES_DB: ${DOCKER__PG_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      test: pg_isready -U ${DOCKER__PG_USER} -d ${DOCKER__PG_DB}
       interval: 5s
       timeout: 3s
       retries: 3
-    env_file:
-      - .env
 
   api:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ${IMAGE}
+    image: ${DOCKER__IMAGE}
     restart: always
     depends_on:
       pg:
@@ -29,8 +31,6 @@ services:
       - ./src/:/app
     ports:
       - "8000:8000"
-    env_file:
-      - .env
 
 volumes:
   postgres_data:
