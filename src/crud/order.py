@@ -27,8 +27,8 @@ async def create_order_item(session: AsyncSession, order_data: OrderCreateSchema
         if product.stock_quantity < product_data.quantity:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f'Insufficient stock for product: {product.name}. \
-                Available: {product.stock_quantity}, requested: {product_data.quantity}.'
+                detail=f'Insufficient stock for product: {product.name}. '
+                f'Available: {product.stock_quantity}, requested: {product_data.quantity}.'
             )
 
     order = await create_order(session, status=order_data.status)
