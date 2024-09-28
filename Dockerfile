@@ -20,4 +20,4 @@ COPY src/ .
 
 EXPOSE 8000
 
-CMD alembic upgrade head && uvicorn main:main_app --host 0.0.0.0 --port 8000 --workers 4
+CMD alembic upgrade head && uvicorn main:main_app --host 0.0.0.0 --port 8000 --reload --workers 4
