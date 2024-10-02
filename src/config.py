@@ -28,6 +28,11 @@ class DatabaseConfig(BaseModel):
     }
 
 
+class DatabaseTestConfig(BaseModel):
+    url: str
+    echo: bool = False
+
+
 class DockerConfig(BaseModel):
     pg_user: str
     pg_password: str
@@ -44,6 +49,7 @@ class Settings(BaseSettings):
     run: RunConfig = RunConfig()
     prefix: Prefix = Prefix()
     db: DatabaseConfig
+    db_test: DatabaseTestConfig
     docker: DockerConfig
 
 
