@@ -44,10 +44,9 @@ async def test_create_order(async_client, quantity, status, expected_status_code
         ]
     }
     response = await async_client.post('/orders', json=payload)
+    assert response.status_code == expected_status_code
 
     data = response.json()
-    print('-- ORDER --:', data)
-    assert response.status_code == expected_status_code
     if response.status_code == 201:
         assert data['status'] == status or OrderStatus.in_process.value
         assert data['products_details'][0]['quantity'] == quantity
