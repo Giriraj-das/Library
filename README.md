@@ -1,15 +1,15 @@
 ### Warehouse
 #### FastAPI, Alembic, SQLAlchemy(v2), Docker
 
-Чтобы все не скачивать, можно запустить в Докере.
-В папке `start` переименовать `.env.example` на `.env`.
-В этой же директории выполнить `docker-compose up`.
+To avoid downloading everything, you can run it in Docker.
+In the `start` folder, rename `.env.example` to `.env`.
+In the same directory, run `docker-compose up`.
 
-#### или
+#### or
 
-- сделать форк
+- fork the repository
 - `pip install poetry`
 - `poetry install`
 - `docker-compose up pg -d`
-- из main.py запустить `run`
-- или в терминале из `src` запустить `uvicorn main:main_app --reload --host 127.0.0.1 --port 8000`
+- from main.py run `run`
+- or in terminal from `/src` run `uvicorn main:main_app --reload --host 127.0.0.1 --port 8000`
