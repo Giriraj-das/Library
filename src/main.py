@@ -16,8 +16,9 @@ async def lifespan(app: FastAPI):
 main_app = FastAPI(
     lifespan=lifespan,
     default_response_class=ORJSONResponse,
-    title='Warehouse',
-    description='FastAPI, PostgreSQL, SQLAlchemy(v2), Docker, Pytest',
+    title='Library',
+    description='API for working with books, authors, and issuing books to readers. '
+                'FastAPI, PostgreSQL, SQLAlchemy(v2), Docker, Pytest',
 )
 main_app.include_router(router)
 

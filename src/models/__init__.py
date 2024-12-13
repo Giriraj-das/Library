@@ -1,14 +1,14 @@
 __all__ = (
-    "Base",
-    "DatabaseHelper",
-    "db_helper",
-    "Product",
-    "Order",
-    "OrderItem",
+    'Base',
+    'DatabaseHelper',
+    'db_helper',
+    'Author',
+    'Book',
+    'Borrow',
 )
 
 from .base import Base
 from .db_helper import DatabaseHelper, db_helper
-from .product import Product
-from .order import Order
-from .order_item import OrderItem
+from .author import Author
+from .book import Book
+from .borrow import Borrow
