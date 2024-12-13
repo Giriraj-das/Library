@@ -21,6 +21,4 @@ class Borrow(Base):
     )
     return_date: Mapped[datetime]
 
-    book: Mapped['Book'] = relationship(
-        back_populates='borrows',
-    )
+    book: Mapped['Book'] = relationship(back_populates='borrows')
