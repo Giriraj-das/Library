@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Book(Base):
     title: Mapped[str]
-    description: Mapped[str]
+    description: Mapped[str] = mapped_column(nullable=True)
     author_id: Mapped[int] = mapped_column(ForeignKey('authors.id'))
     available_copies: Mapped[int] = mapped_column(default=1, server_default='1')
 
