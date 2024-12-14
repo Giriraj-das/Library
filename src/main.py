@@ -4,8 +4,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
-from views import router
-from config import settings
+from author import router as author_router
+from core.config import settings
 
 
 @asynccontextmanager
@@ -20,7 +20,7 @@ main_app = FastAPI(
     description='API for working with books, authors, and issuing books to readers. '
                 'FastAPI, PostgreSQL, SQLAlchemy(v2), Docker, Pytest',
 )
-main_app.include_router(router)
+main_app.include_router(author_router)
 
 if __name__ == '__main__':
     uvicorn.run(
