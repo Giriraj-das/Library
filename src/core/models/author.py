@@ -1,12 +1,11 @@
 from datetime import date
 from typing import TYPE_CHECKING
 
-from sqlalchemy import TEXT
 from sqlalchemy.orm import Mapped, relationship, mapped_column
-from models import Base
+from core.models import Base
 
 if TYPE_CHECKING:
-    from models import Book
+    from core.models import Book
 
 
 class Author(Base):

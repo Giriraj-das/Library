@@ -3,11 +3,11 @@ from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 
-from models import Base
+from core.models import Base
 
 if TYPE_CHECKING:
-    from models import Author
-    from models import Borrow
+    from core.models import Author
+    from core.models import Borrow
 
 
 class Book(Base):
