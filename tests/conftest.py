@@ -4,9 +4,9 @@ import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
-from config import settings
+from core import settings
 from main import main_app
-from models import db_helper, Base
+from core.models import db_helper, Base
 
 async_engine = create_async_engine(url=settings.db_test.url, echo=settings.db_test.echo)
 async_session = async_sessionmaker(bind=async_engine, autoflush=False, autocommit=False, expire_on_commit=False)
