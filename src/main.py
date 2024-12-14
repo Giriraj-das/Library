@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
 from author import router as author_router
+from book import router as book_router
 from core.config import settings
 
 
@@ -21,6 +22,7 @@ main_app = FastAPI(
                 'FastAPI, PostgreSQL, SQLAlchemy(v2), Docker, Pytest',
 )
 main_app.include_router(author_router)
+main_app.include_router(book_router)
 
 if __name__ == '__main__':
     uvicorn.run(
