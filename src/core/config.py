@@ -8,8 +8,9 @@ class RunConfig(BaseModel):
 
 
 class Prefix(BaseModel):
-    product: str = '/products'
-    order: str = '/orders'
+    author: str = '/authors'
+    book: str = '/books'
+    borrow: str = '/borrows'
 
 
 class DatabaseConfig(BaseModel):
