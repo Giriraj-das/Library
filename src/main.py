@@ -6,6 +6,7 @@ from fastapi.responses import ORJSONResponse
 
 from author import router as author_router
 from book import router as book_router
+from borrow import router as borrow_router
 from core.config import settings
 
 
@@ -23,6 +24,7 @@ main_app = FastAPI(
 )
 main_app.include_router(author_router)
 main_app.include_router(book_router)
+main_app.include_router(borrow_router)
 
 if __name__ == '__main__':
     uvicorn.run(
