@@ -27,3 +27,7 @@ class AuthorUpdatePartialSchema(AuthorCreateSchema):
 
 class AuthorSchema(AuthorCreateSchema):
     id: int
+
+
+class AuthorNameSchema(AuthorBaseSchema):
+    pass

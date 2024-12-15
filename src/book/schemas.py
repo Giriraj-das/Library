@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from author.schemas import AuthorNameSchema
+
 
 class BookBaseSchema(BaseModel):
     title: str
@@ -27,3 +29,4 @@ class BookUpdatePartialSchema(BookCreateSchema):
 
 class BookSchema(BookCreateSchema):
     id: int
+    author: AuthorNameSchema
