@@ -1,4 +1,4 @@
-### Warehouse
+### Library
 #### FastAPI, Alembic, SQLAlchemy(v2), Docker
 
 To avoid downloading everything, you can run it in Docker.
