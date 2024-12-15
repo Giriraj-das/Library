@@ -1,10 +1,11 @@
-from fastapi import Depends, HTTPException, status, Path
+from fastapi import Depends, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from author import crud as author_crud
 from book import crud
 from book.schemas import BookCreateSchema, BookUpdateSchema
 from core.models import db_helper, Book, Author
+from utils import CustomException
 
 
 async def create_book(
@@ -14,10 +15,7 @@ async def create_book(
     author_id: int = book_data.author_id
     author: Author | None = await author_crud.get_author(session=session, author_id=author_id)
     if not author:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Author {author_id} not found!",
-        )
+        raise CustomException.http_404(detail=f'Author {author_id} not found!')
 
     return await crud.create_book(session=session, book_data=book_data)
 
@@ -35,10 +33,7 @@ async def get_book(
     book: Book | None = await crud.get_book(session=session, book_id=book_id)
     if book:
         return book
-    raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Book {book_id} not found!",
-        )
+    raise CustomException.http_404(detail=f'Book {book_id} not found!')
 
 
 async def update_book(

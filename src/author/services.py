@@ -1,9 +1,10 @@
-from fastapi import Depends, Path, HTTPException, status
+from fastapi import Depends, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from author import crud
 from author.schemas import AuthorCreateSchema, AuthorUpdateSchema
 from core.models import db_helper, Author
+from utils import CustomException
 
 
 async def create_author(
@@ -26,10 +27,7 @@ async def get_author(
     author: Author | None = await crud.get_author(session=session, author_id=author_id)
     if author:
         return author
-    raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Author {author_id} not found!",
-        )
+    raise CustomException.http_404(detail=f'Author {author_id} not found!')
 
 
 async def update_author(
