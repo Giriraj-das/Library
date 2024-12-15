@@ -1,4 +1,5 @@
 ### Library
+#### API for working with books, authors, and issuing books to readers.
 #### FastAPI, Alembic, SQLAlchemy(v2), Docker
 
 To avoid downloading everything, you can run it in Docker.
