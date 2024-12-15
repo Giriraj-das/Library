@@ -14,7 +14,7 @@ async def create_author(author: Author = Depends(services.create_author)):
 
 
 @router.get('', response_model=list[AuthorsSchema])
-async def get_authors(authors: Author = Depends(services.get_authors)):
+async def get_authors(authors: list[Author] = Depends(services.get_authors)):
     return authors
 
 

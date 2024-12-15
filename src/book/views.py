@@ -14,7 +14,7 @@ async def create_book(book: Book = Depends(services.create_book)):
 
 
 @router.get('', response_model=list[BooksSchema])
-async def get_books(books: Book = Depends(services.get_books)):
+async def get_books(books: list[Book] = Depends(services.get_books)):
     return books
 
 
