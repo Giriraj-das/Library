@@ -6,7 +6,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.models import Base
 
-
 if TYPE_CHECKING:
     from core.models import Book
 
@@ -19,6 +18,6 @@ class Borrow(Base):
         default=datetime.now(timezone.utc),
         server_default=func.now(),
     )
-    return_date: Mapped[datetime]
+    return_date: Mapped[datetime] = mapped_column(nullable=True)
 
     book: Mapped['Book'] = relationship(back_populates='borrows')
