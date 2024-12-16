@@ -8,7 +8,7 @@ class BookBaseSchema(BaseModel):
 
 
 class BookCreateSchema(BookBaseSchema):
-    description: str | None
+    description: str | None = None
     author_id: int
     available_copies: int
 
@@ -22,9 +22,9 @@ class BookUpdateSchema(BookCreateSchema):
 
 
 class BookUpdatePartialSchema(BookCreateSchema):
-    title: str | None
-    author_id: int | None
-    available_copies: int | None
+    title: str | None = None
+    author_id: int | None = None
+    available_copies: int | None = None
 
 
 class BookSchema(BookCreateSchema):
