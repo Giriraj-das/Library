@@ -4,7 +4,7 @@ import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
-from core import settings
+from core.config import settings
 from main import main_app
 from core.models import db_helper, Base
 
