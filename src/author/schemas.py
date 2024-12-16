@@ -1,15 +1,15 @@
 from datetime import date
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class AuthorBaseSchema(BaseModel):
-    first_name: str
-    last_name: str
+    first_name: str = Field(min_length=2, max_length=15)
+    last_name: str = Field(min_length=2, max_length=50)
 
 
 class AuthorCreateSchema(AuthorBaseSchema):
-    birth_date: date | None
+    birth_date: date | None = None
 
 
 class AuthorsSchema(AuthorBaseSchema):
@@ -21,8 +21,8 @@ class AuthorUpdateSchema(AuthorCreateSchema):
 
 
 class AuthorUpdatePartialSchema(AuthorCreateSchema):
-    first_name: str | None
-    last_name: str | None
+    first_name: str | None = None
+    last_name: str | None = None
 
 
 class AuthorSchema(AuthorCreateSchema):
