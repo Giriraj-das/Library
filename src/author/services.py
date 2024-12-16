@@ -11,6 +11,14 @@ async def create_author(
         author_data: AuthorCreateSchema,
         session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ) -> Author:
+    author: Author | None = await crud.get_author_by_first_and_last_name(
+        session=session,
+        first_name=author_data.first_name,
+        last_name=author_data.last_name,
+    )
+    if author:
+        raise CustomException.http_400(detail=f'Author already exists!')
+
     return await crud.create_author(session=session, author_data=author_data)
 
 

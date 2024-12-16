@@ -18,6 +18,18 @@ async def get_authors(session: AsyncSession) -> list[Author]:
     return list(result.all())
 
 
+async def get_author_by_first_and_last_name(
+        session: AsyncSession,
+        first_name: str,
+        last_name: str,
+) -> Author | None:
+    stmt = (
+        select(Author)
+        .where(Author.first_name == first_name, Author.last_name == last_name)
+    )
+    return await session.scalar(stmt)
+
+
 async def get_author(session: AsyncSession, author_id: int) -> Author | None:
     return await session.get(Author, author_id)
 
