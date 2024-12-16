@@ -1,8 +1,9 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from borrow.schemas import BorrowCreateSchema, BorrowReturnSchema
-from core.models import Borrow
+from core.models import Borrow, Book
 
 
 async def create_borrow(session: AsyncSession, borrow_data: BorrowCreateSchema) -> Borrow:
@@ -13,13 +14,22 @@ async def create_borrow(session: AsyncSession, borrow_data: BorrowCreateSchema) 
 
 
 async def get_borrows(session: AsyncSession) -> list[Borrow]:
-    stmt = select(Borrow).order_by(Borrow.borrow_date)
+    stmt = (
+        select(Borrow)
+        .options(selectinload(Borrow.book).selectinload(Book.author))
+        .order_by(Borrow.borrow_date)
+    )
     result = await session.scalars(stmt)
     return list(result.all())
 
 
 async def get_borrow(session: AsyncSession, borrow_id: int) -> Borrow | None:
-    return await session.get(Borrow, borrow_id)
+    stmt = (
+        select(Borrow)
+        .options(selectinload(Borrow.book).selectinload(Book.author))
+        .where(Borrow.id == borrow_id)
+    )
+    return await session.scalar(stmt)
 
 
 async def update_borrow(
@@ -31,4 +41,10 @@ async def update_borrow(
     for name, value in borrow_data.model_dump(exclude_unset=partial).items():
         setattr(borrow, name, value)
     await session.commit()
-    return borrow
+
+    stmt = (
+        select(Borrow)
+        .options(selectinload(Borrow.book).selectinload(Book.author))
+        .where(Borrow.id == borrow.id)
+    )
+    return await session.scalar(stmt)

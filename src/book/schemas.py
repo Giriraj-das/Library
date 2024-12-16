@@ -30,3 +30,7 @@ class BookUpdatePartialSchema(BookCreateSchema):
 class BookSchema(BookCreateSchema):
     id: int
     author: AuthorNameSchema
+
+
+class BookTitleAuthorNameSchema(BookBaseSchema):
+    author: AuthorNameSchema
