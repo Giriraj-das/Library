@@ -18,7 +18,7 @@ books_data = [
 
 borrows_data = [
     {"book_id": 1, "borrower_name": "Alice", "borrow_date": datetime(2024, 12, 11), "return_date": None},
-    {"book_id": 2, "borrower_name": "Bob", "borrow_date": datetime(2024, 12, 13), "return_date": datetime(2024, 12, 10)},
+    {"book_id": 2, "borrower_name": "Bob", "borrow_date": datetime(2024, 12, 13), "return_date": datetime(2024, 12, 16)},
     {"book_id": 4, "borrower_name": "Charlie", "borrow_date": datetime(2024, 12, 15), "return_date": None},
 ]
 
