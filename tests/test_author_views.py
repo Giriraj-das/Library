@@ -19,7 +19,6 @@ async def test_create_author(async_client, author_payload, first_name, last_name
     response = await async_client.post('/authors', json=payload)
 
     assert response.status_code == expected_status_code
-
     data = response.json()
     if expected_status_code == 201:
         assert data['first_name'] == first_name
@@ -39,7 +38,6 @@ async def test_get_authors(async_client, authors_payload):
     
     response = await async_client.get('/authors')
     assert response.status_code == 200
-
     authors = response.json()
     assert isinstance(authors, list)
     assert len(authors) == len(authors_payload)
@@ -64,7 +62,6 @@ async def test_get_author(async_client, author_payload):
 
     response = await async_client.get(f'/authors/{created_author["id"]}')
     assert response.status_code == 200
-
     data = response.json()
     assert data['first_name'] == created_author['first_name']
     assert data['last_name'] == created_author['last_name']
@@ -79,8 +76,8 @@ async def test_update_author(async_client, author_payload):
 
     updated_payload = {'first_name': 'Lev', 'last_name': 'Tolstoy'}
     response = await async_client.put(f'/authors/{created_author['id']}', json=updated_payload)
-    assert response.status_code == 200
 
+    assert response.status_code == 200
     updated_author = response.json()
     assert updated_author['first_name'] == updated_payload['first_name']
     assert updated_author['last_name'] == updated_payload['last_name']
