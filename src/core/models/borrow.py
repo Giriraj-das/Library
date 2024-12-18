@@ -18,6 +18,6 @@ class Borrow(Base):
         default=datetime.now(timezone.utc),
         server_default=func.now(),
     )
-    return_date: Mapped[datetime] = mapped_column(nullable=True)
+    return_date: Mapped[datetime | None] = mapped_column(nullable=True)
 
     book: Mapped['Book'] = relationship(back_populates='borrows')
