@@ -1,4 +1,4 @@
-import logging
+from datetime import date
 from typing import AsyncGenerator
 
 import pytest_asyncio
@@ -50,7 +50,7 @@ async def async_client() -> AsyncClient:
 
 
 @pytest_asyncio.fixture(scope='module')
-def author_payload():
+def author_payload() -> dict[str: str | date]:
     return {
         'first_name': 'Mark',
         'last_name': 'Twain',
@@ -59,9 +59,19 @@ def author_payload():
 
 
 @pytest_asyncio.fixture(scope='module')
-def authors_payload():
+def authors_payload() -> dict[str: str]:
     return [
         {'first_name': 'Aleksandr', 'last_name': 'Pushkin'},
         {'first_name': 'George', 'last_name': 'Orwell'},
         {'first_name': 'Mark', 'last_name': 'Twain'},
     ]
+
+
+@pytest_asyncio.fixture(scope='module')
+def book_payload() -> dict[str: str | int]:
+    return {
+        'title': 'War and Peace',
+        'description': 'A historical novel by Leo Tolstoy.',
+        'author_id': 1,
+        'available_copies': 5,
+    }
