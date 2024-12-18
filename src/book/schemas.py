@@ -1,16 +1,16 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from author.schemas import AuthorNameSchema
 
 
 class BookBaseSchema(BaseModel):
-    title: str
+    title: str = Field(min_length=3, max_length=100)
 
 
 class BookCreateSchema(BookBaseSchema):
-    description: str | None = None
+    description: str | None = Field(None, min_length=10)
     author_id: int
-    available_copies: int
+    available_copies: int = Field(ge=0)  # greater than or equal
 
 
 class BooksSchema(BookBaseSchema):
