@@ -1,8 +1,8 @@
 """Database creation
 
-Revision ID: 1afea678c3e0
+Revision ID: 1fdf90e4360a
 Revises: 
-Create Date: 2024-12-14 22:06:00.463007
+Create Date: 2024-12-18 16:29:32.938844
 
 """
 
@@ -13,7 +13,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = "1afea678c3e0"
+revision: str = "1fdf90e4360a"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -22,16 +22,21 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     op.create_table(
         "authors",
-        sa.Column("first_name", sa.String(), nullable=False),
-        sa.Column("last_name", sa.String(), nullable=False),
+        sa.Column("first_name", sa.String(length=15), nullable=False),
+        sa.Column("last_name", sa.String(length=50), nullable=False),
         sa.Column("birth_date", sa.Date(), nullable=True),
         sa.Column("id", sa.Integer(), nullable=False),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_authors")),
+        sa.UniqueConstraint(
+            "first_name",
+            "last_name",
+            name=op.f("uq_authors_first_name_last_name"),
+        ),
     )
     op.create_table(
         "books",
-        sa.Column("title", sa.String(), nullable=False),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("title", sa.String(length=100), nullable=False),
+        sa.Column("description", sa.Text(), nullable=True),
         sa.Column("author_id", sa.Integer(), nullable=False),
         sa.Column(
             "available_copies",
