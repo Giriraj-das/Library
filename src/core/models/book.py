@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, Text, String
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 
 from core.models import Base
@@ -11,8 +11,8 @@ if TYPE_CHECKING:
 
 
 class Book(Base):
-    title: Mapped[str]
-    description: Mapped[str] = mapped_column(nullable=True)
+    title: Mapped[str] = mapped_column(String(100))
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
     author_id: Mapped[int] = mapped_column(ForeignKey('authors.id'))
     available_copies: Mapped[int] = mapped_column(default=1, server_default='1')
 
